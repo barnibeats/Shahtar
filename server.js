@@ -5,8 +5,8 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const { loadNextMatch, SITE } = require('./scrape');
-const MIME = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.js': 'text/javascript', '.svg': 'image/svg+xml' };
-const PUBLIC = ['index.html', 'shakhtar.svg', 'match.json'];
+const MIME = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.ttf': 'font/ttf' };
+const PUBLIC = ['index.html', 'shakhtar.svg', 'match.json', 'DINPro-Medium.ttf'];
 
 let cache = null;
 
