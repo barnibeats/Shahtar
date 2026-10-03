@@ -1,0 +1,12 @@
+{
+  "home": {
+    "logo": "logos/home.png",
+    "name": "Верес"
+  },
+  "away": {
+    "logo": "logos/away.png",
+    "name": "Шахтар"
+  },
+  "league": "Прем’єр-ліга України",
+  "timestamp": 1791549000000
+}

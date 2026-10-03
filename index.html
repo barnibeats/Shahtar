@@ -91,10 +91,12 @@
     set('s', left % 60);
   }
 
+  function logoSrc(u, v) { return /^https?:/.test(u) ? 'logo?u=' + encodeURIComponent(u) : u + '?v=' + v; }
+
   function render(m) {
     match = m;
-    document.getElementById('homeLogo').src = '/logo?u=' + encodeURIComponent(m.home.logo);
-    document.getElementById('awayLogo').src = '/logo?u=' + encodeURIComponent(m.away.logo);
+    document.getElementById('homeLogo').src = logoSrc(m.home.logo, m.timestamp);
+    document.getElementById('awayLogo').src = logoSrc(m.away.logo, m.timestamp);
     document.getElementById('homeName').textContent = m.home.name;
     document.getElementById('awayName').textContent = m.away.name;
     var g = {};
@@ -107,7 +109,11 @@
   }
 
   function load() {
-    fetch('/api/next-match', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (m) {
+    // Локальный сервер отдаёт api/next-match, на GitHub Pages данные лежат в match.json
+    fetch('api/next-match', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .catch(function () { return fetch('match.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }); })
+      .then(function (m) {
       if (m.error) throw new Error(m.error);
       render(m); document.getElementById('err').textContent = '';
     }).catch(function (e) { document.getElementById('err').textContent = 'Немає даних: ' + e.message; });
