@@ -43,13 +43,13 @@
   <div class="abs" id="club"><img src="shakhtar.svg" alt="Шахтар" style="height:266px;width:auto"></div>
   <div class="abs" id="title">ДО НАСТУПНОГО МАТЧУ</div>
   <div class="abs" id="timer">
-    <div class="cell"><div class="num" id="d">--</div><div class="lbl">дні</div></div>
+    <div class="cell"><div class="num" id="d">--</div><div class="lbl" id="dl">дні</div></div>
     <div class="sep"></div>
-    <div class="cell"><div class="num" id="h">--</div><div class="lbl">годин</div></div>
+    <div class="cell"><div class="num" id="h">--</div><div class="lbl" id="hl">годин</div></div>
     <div class="sep"></div>
-    <div class="cell"><div class="num" id="m">--</div><div class="lbl">хвилин</div></div>
+    <div class="cell"><div class="num" id="m">--</div><div class="lbl" id="ml">хвилин</div></div>
     <div class="sep"></div>
-    <div class="cell"><div class="num" id="s">--</div><div class="lbl">секунд</div></div>
+    <div class="cell"><div class="num" id="s">--</div><div class="lbl" id="sl">секунд</div></div>
   </div>
   <div class="abs" id="teams">
     <div class="team"><div class="badge"><img id="homeLogo" alt=""></div><div class="tname" id="homeName"></div></div>
@@ -70,13 +70,25 @@
   addEventListener('resize', fit); fit();
 
   function p2(n) { return String(n).padStart(2, '0'); }
+  var FORMS = { d: ['день', 'дні', 'днів'], h: ['година', 'години', 'годин'],
+                m: ['хвилина', 'хвилини', 'хвилин'], s: ['секунда', 'секунди', 'секунд'] };
+  function plural(n, f) {
+    var a = n % 10, b = n % 100;
+    if (a === 1 && b !== 11) return f[0];
+    if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return f[1];
+    return f[2];
+  }
+  function set(k, n) {
+    document.getElementById(k).textContent = p2(n);
+    document.getElementById(k + 'l').textContent = plural(n, FORMS[k]);
+  }
   function tick() {
     if (!match) return;
     var left = Math.max(0, Math.floor((match.timestamp - Date.now()) / 1000));
-    document.getElementById('d').textContent = p2(Math.floor(left / 86400));
-    document.getElementById('h').textContent = p2(Math.floor(left % 86400 / 3600));
-    document.getElementById('m').textContent = p2(Math.floor(left % 3600 / 60));
-    document.getElementById('s').textContent = p2(left % 60);
+    set('d', Math.floor(left / 86400));
+    set('h', Math.floor(left % 86400 / 3600));
+    set('m', Math.floor(left % 3600 / 60));
+    set('s', left % 60);
   }
 
   function render(m) {
