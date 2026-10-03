@@ -8,7 +8,7 @@ const SITE = 'https://shakhtar.com';
 const FIXTURES = SITE + '/uk-ua/matchday/fixtures/';
 const MONTHS = { 'січня': 1, 'лютого': 2, 'березня': 3, 'квітня': 4, 'травня': 5, 'червня': 6, 'липня': 7, 'серпня': 8, 'вересня': 9, 'жовтня': 10, 'листопада': 11, 'грудня': 12 };
 const MIME = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.js': 'text/javascript', '.svg': 'image/svg+xml' };
-const PUBLIC = ['index.html', 'shakhtar.png'];
+const PUBLIC = ['index.html', 'shakhtar.svg'];
 
 let cache = null;
 
@@ -71,6 +71,16 @@ http.createServer(async (req, res) => {
       res.writeHead(502, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: e.message }));
     }
+    return;
+  }
+  if (url.pathname === '/logo') {
+    const u = url.searchParams.get('u') || '';
+    if (!u.startsWith(SITE + '/-/media/')) { res.writeHead(400); return res.end('bad url'); }
+    try {
+      const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      res.writeHead(r.status, { 'Content-Type': r.headers.get('content-type') || 'image/png', 'Cache-Control': 'max-age=86400' });
+      res.end(Buffer.from(await r.arrayBuffer()));
+    } catch (e) { res.writeHead(502); res.end(); }
     return;
   }
   const name = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);

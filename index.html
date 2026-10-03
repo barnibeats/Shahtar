@@ -15,8 +15,8 @@
   #title { top: 398px; font-size: 46px; font-weight: 700; color: #111; letter-spacing: 1px; line-height: 60px; }
   #timer { top: 455px; height: 150px; display: flex; justify-content: center; align-items: flex-start; }
   .cell { position: relative; width: 188px; }
-  .num { font-size: 138px; line-height: 150px; font-weight: 700; color: #fff; }
-  .lbl { position: absolute; left: 0; right: 0; top: 98px; font-size: 25px; font-weight: 500; color: #fff; text-transform: uppercase; line-height: 150px; }
+  .num { font-size: 108px; line-height: 120px; font-weight: 700; color: #fff; }
+  .lbl { position: absolute; left: 0; right: 0; top: 118px; font-size: 25px; font-weight: 500; color: #fff; text-transform: uppercase; line-height: 30px; }
   .sep { width: 0; position: relative; }
   .sep::before, .sep::after { content: ''; position: absolute; left: -7px; width: 14px; height: 14px; background: #fff; }
   .sep::before { top: 46px; }
@@ -38,7 +38,7 @@
 </head>
 <body>
 <div id="stage">
-  <div class="abs" id="club"><img src="shakhtar.png" alt="Шахтар" style="height:266px"></div>
+  <div class="abs" id="club"><img src="shakhtar.svg" alt="Шахтар" style="height:266px;width:auto"></div>
   <div class="abs" id="title">ДО НАСТУПНОГО МАТЧУ</div>
   <div class="abs" id="timer">
     <div class="cell"><div class="num" id="d">--</div><div class="lbl">дні</div></div>
@@ -79,8 +79,8 @@
 
   function render(m) {
     match = m;
-    document.getElementById('homeLogo').src = m.home.logo;
-    document.getElementById('awayLogo').src = m.away.logo;
+    document.getElementById('homeLogo').src = '/logo?u=' + encodeURIComponent(m.home.logo);
+    document.getElementById('awayLogo').src = '/logo?u=' + encodeURIComponent(m.away.logo);
     var g = {};
     new Intl.DateTimeFormat('uk-UA', { timeZone: 'Europe/Kyiv', day: '2-digit', month: '2-digit', year: 'numeric',
       hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' })
