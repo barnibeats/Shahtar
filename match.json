@@ -1,12 +1,12 @@
 {
   "home": {
     "logo": "logos/home.png",
-    "name": "Верес"
+    "name": "Шахтар"
   },
   "away": {
     "logo": "logos/away.png",
-    "name": "Шахтар"
+    "name": "AEK (Афіни)"
   },
-  "league": "Прем’єр-ліга України",
-  "timestamp": 1791549000000
+  "league": "Ліга чемпіонів УЄФА",
+  "timestamp": 1792004400000
 }
