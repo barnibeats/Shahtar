@@ -1,12 +1,12 @@
 {
   "home": {
     "logo": "logos/home.png",
-    "name": "Інтер"
+    "name": "Шахтар"
   },
   "away": {
     "logo": "logos/away.png",
-    "name": "Шахтар"
+    "name": "Зоря"
   },
-  "league": "Ліга чемпіонів УЄФА",
-  "timestamp": 1792609200000
+  "league": "Прем’єр-ліга України",
+  "timestamp": 1792854000000
 }
